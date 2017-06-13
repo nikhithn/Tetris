@@ -7,8 +7,8 @@ For a guide on how to set-up these dependencies, please see the below links:
 <br>Set-up Python: https://docs.python.org/3/using/index.html
 <br>Set-up Pygame: https://www.pygame.org/wiki/GettingStarted
 
-Once these are set-up, play the game by running
-python3 main.py
+Once these are set-up, play the game by running the command
+<br>python3 main.py
 
 You can move the piece left and right by using the arrow keys, and rotate the piece by using the up key.
 
