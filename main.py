@@ -28,8 +28,8 @@ board = pygame.Surface(screen.get_size())
 
 # Initialize a blockfactory (a custom class in the BlockFactory.py file)
 bFactory = BlockFactory(board, blockSize, boardColor)
-# Generate a block (a custom class in the BlockFactory.py file)
-block, gameOver = bFactory.generateBlock()
+# Generate a mino (a custom class in the BlockFactory.py file)
+block, gameOver = bFactory.generateMino()
 
 # We are ready to start the game!
 # Here we grab the current time so that we can measure game time relative to it
@@ -43,16 +43,16 @@ while 1:
     currTime = pygame.time.get_ticks()
 
     # More than the drop speed time has passed since the last drop
-    # Then drop the block!
+    # Then drop the mino!
     if (currTime-dropTime>=dropSpeed):
         # First this is the new dropTime
         dropTime = currTime
 
-        # Now we move the block by the drop increment
-        # If the block could not be dropped (because it collided with something)
-        # Then the block has fallen, and we need to check if any lines are cleared
-        # And generate a new block
-        if (block.moveBlock(drop)==False):
+        # Now we move the mino by the drop increment
+        # If the mino could not be dropped (because it collided with something)
+        # Then the mino has fallen, and we need to check if any lines are cleared
+        # And generate a new mino
+        if (block.moveMino(drop)==False):
 
             # First check if any lines were cleared by looping through each row
             for i in range(0, board.get_height(), blockSize):
@@ -72,9 +72,9 @@ while 1:
                     area = area.copy()
                     board.blit(area, (0,blockSize))
 
-            # Once any lines are cleared, we can generate the next block
-            block, gameOver = bFactory.generateBlock()
-            # If the block couldn't be generated (due to a collision) then the game is over!
+            # Once any lines are cleared, we can generate the next mino
+            block, gameOver = bFactory.generateMino()
+            # If the mino couldn't be generated (due to a collision) then the game is over!
             if(gameOver == True):
                 # We break out of the game loop
                 break
@@ -89,15 +89,15 @@ while 1:
             sys.exit()
         # If a key is pressed
         keys = pygame.key.get_pressed()
-        elif event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
             # Then if it is the left arrow key, move left, else if it is the right arrow key, move right
             if event.key == pygame.K_LEFT:
-                block.moveBlock(moveLeft)
-            elif event.key == pygame.K_RIGHT:
-                block.moveBlock(moveRight)
+                block.moveMino(moveLeft)
+            if event.key == pygame.K_RIGHT:
+                block.moveMino(moveRight)
             # If it is the up arrow key, then rotate.
-            elif event.key == pygame.K_UP:
-                block.rotateBlock()
+            if event.key == pygame.K_UP:
+                block.rotateMino()
         # All other input events are ignored
 
     # Finally draw the board onto the display, and update the display
