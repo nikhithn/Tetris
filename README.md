@@ -10,6 +10,8 @@ For a guide on how to set-up these dependencies, please see the below links:
 Once these are set-up, play the game by running the command
 <br><code>python3 main.py</code>
 
+As a note, there are known issues with pygame and OSX (specifically around window focus).  This has been tested on Ubuntu 14.04
+
 You can move the piece left and right by using the arrow keys, and rotate the piece by using the up key.
 
 Hope you enjoy it!
