@@ -1,0 +1,14 @@
+class Board:
+    
+    def __init__(self):
+        self.board = [[0 for i in range(16)] for i in range(10)]
+        self.board[1][0]=1
+        print(self.board)
+
+    def addBlock(self, block):
+        if (block.blockType = "I"):
+            if (self.board[3:6]==[0,0,0,0]):
+                
+            else:
+                return false
+
