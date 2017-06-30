@@ -3,6 +3,10 @@ from BlockFactory import BlockFactory
 
 pygame.init()
 
+# Grab a system font, in this case monospace
+# TODO: Figure out what happens if the font is not available
+myfont = pygame.font.SysFont("monospace", 15)
+
 # This is the size of the display
 size = width, height = 400, 640
 
@@ -11,7 +15,7 @@ size = width, height = 400, 640
 blockSize = int(width/10)
 
 # Drop speed is the number milliseconds before the piece drops
-dropSpeed = 500
+dropSpeed = 200
 
 # Define piece movements
 drop = [0, blockSize]
@@ -20,6 +24,9 @@ moveLeft = [-blockSize,0]
 
 # The boardColor will be a solid black (for now)
 boardColor = (0,0,0,255)
+
+# Score is set to 0 at the beginning of the game
+score = 0
 
 # Set the size of the display to the size we defined above, and store it as screen
 screen = pygame.display.set_mode(size)
@@ -54,6 +61,9 @@ while 1:
         # And generate a new mino
         if (block.moveMino(drop)==False):
 
+            # Track the number of lines cleared.  Initially zero
+            linesCleared = 0
+            
             # First check if any lines were cleared by looping through each row
             for i in range(0, board.get_height(), blockSize):
                 clearLine = True
@@ -65,6 +75,11 @@ while 1:
 
                 # If we should to clear the line
                 if(clearLine):
+                    # The number of lines cleared is increased by 1
+                    linesCleared += 1
+                    # Each subsequent line cleared in a single drop is worth 100 points more
+                    score = score + linesCleared * 100
+
                     # Then we grab the rectangle from the top to the row above the line to clear
                     # Then we copy that rectangle one row below, overwriting the line, and moving everything down
                     area_rect = pygame.Rect(0, 0, board.get_width(), i)
@@ -100,8 +115,15 @@ while 1:
                 block.rotateMino()
         # All other input events are ignored
 
-    # Finally draw the board onto the display, and update the display
+    # Finally draw the board onto the display 
     screen.blit(board, (0,0))
+
+    # The score is printed to the top right of the scoree.  
+    # TODO: This may interfere with block movement as an edge case.
+    scoreLabel = myfont.render(str(score), 1, (255,255,0))
+    screen.blit(scoreLabel, (0, 0))
+    
+    # Update the display
     pygame.display.update()
 
 # If the above loop ends (game over)
