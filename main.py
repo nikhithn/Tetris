@@ -31,7 +31,8 @@ score = 0
 # Set the size of the display to the size we defined above, and store it as screen
 screen = pygame.display.set_mode(size)
 # The board will be the entire screen size (so no hold piece or scoreboard, for now)
-board = pygame.Surface(screen.get_size())
+board = pygame.Surface(screen.get_size(),pygame.SRCALPHA)
+board.fill(boardColor)
 
 # Initialize a blockfactory (a custom class in the BlockFactory.py file)
 bFactory = BlockFactory(board, blockSize, boardColor)
@@ -118,11 +119,6 @@ while 1:
     # Finally draw the board onto the display 
     screen.blit(board, (0,0))
 
-    # The score is printed to the top right of the scoree.  
-    # TODO: This may interfere with block movement as an edge case.
-    scoreLabel = myfont.render(str(score), 1, (255,255,0))
-    screen.blit(scoreLabel, (0, 0))
-    
     # Update the display
     pygame.display.update()
 
